@@ -21,7 +21,6 @@ public class Main {
   public static String ROAD_SURF_COLUMN = "road_surface";
   public static String ROAD_COND_COLUMN = "road_cond_1";
   public static String LIGHTING_COLUMN = "lighting";
-
   public static List<String> attributes = new ArrayList<String>() {{
     add(WEATHER_COLUMN);
     add(ALCOHOL_COLUMN);
@@ -31,18 +30,20 @@ public class Main {
     add(ROAD_COND_COLUMN);
     add(LIGHTING_COLUMN);
   }};
-
+  public static String POSTGRES_URL;
 
   public static void main(String[] args) throws Exception {
 
-    File file = new File(args[0]);
+    POSTGRES_URL = String.format("jdbc:postgresql://%s", args[0]);
 
-    try (BufferedWriter writer = new BufferedWriter(new FileWriter(args[1]))) {
+    File file = new File(args[1]);
+
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(args[2]))) {
 
       // import data into the database
       String tableName = CSVImporter.importToDatabaseTable(file);
 
-      GridBasedClustering gridBasedClustering = new GridBasedClustering(tableName, args[2]);
+      GridBasedClustering gridBasedClustering = new GridBasedClustering(tableName, args[3]);
       List<GridBasedClustering.GridCluster> gridClusters = gridBasedClustering.execute();
 
       NaiveBayesClassifier naiveBayesClassifier = new NaiveBayesClassifier(tableName);

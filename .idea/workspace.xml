@@ -1,7 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="804da9fb-47a5-4c31-921b-e48b246d7715" name="Default" comment="" />
+    <list default="true" id="804da9fb-47a5-4c31-921b-e48b246d7715" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/cs235/database/PostgresSQL.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/cs235/classifiers/GridBasedClustering$GridCluster.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/cs235/classifiers/GridBasedClustering.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/cs235/database/PostgresSQL.class" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/cs235/CSVImporter$1.class" afterPath="$PROJECT_DIR$/target/classes/com/cs235/CSVImporter$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/cs235/CSVImporter$FieldType.class" afterPath="$PROJECT_DIR$/target/classes/com/cs235/CSVImporter$FieldType.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/cs235/CSVImporter.class" afterPath="$PROJECT_DIR$/target/classes/com/cs235/CSVImporter.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/cs235/Main$1.class" afterPath="$PROJECT_DIR$/target/classes/com/cs235/Main$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/cs235/Main.class" afterPath="$PROJECT_DIR$/target/classes/com/cs235/Main.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/cs235/classifiers/NaiveBayesClassifier.class" afterPath="$PROJECT_DIR$/target/classes/com/cs235/classifiers/NaiveBayesClassifier.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/cs235_project-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/target/cs235_project-1.0-SNAPSHOT.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/cs235_project-1.0-SNAPSHOT.one-jar.jar" afterPath="$PROJECT_DIR$/target/cs235_project-1.0-SNAPSHOT.one-jar.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/out.txt" afterPath="$PROJECT_DIR$/out/out.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/cs235/CSVImporter.java" afterPath="$PROJECT_DIR$/src/main/java/com/cs235/CSVImporter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/cs235/Main.java" afterPath="$PROJECT_DIR$/src/main/java/com/cs235/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/cs235/classifiers/GridBasedClustering.java" afterPath="$PROJECT_DIR$/src/main/java/com/cs235/classifiers/GridBasedClustering.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/cs235/classifiers/NaiveBayesClassifier.java" afterPath="$PROJECT_DIR$/src/main/java/com/cs235/classifiers/NaiveBayesClassifier.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -52,26 +71,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/cs235/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="511">
-              <caret line="44" column="90" lean-forward="false" selection-start-line="44" selection-start-column="90" selection-end-line="44" selection-end-column="90" />
+            <state relative-caret-position="471">
+              <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PostgresSQL.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/cs235/database/PostgresSQL.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="7" column="78" lean-forward="false" selection-start-line="7" selection-start-column="78" selection-end-line="7" selection-end-column="78" />
-              <folding>
-                <marker date="1512404588915" expanded="true" signature="291:305" ph="DROP TABLE $... " />
-                <marker date="1512404588915" expanded="true" signature="291:309" ph="DROP TABLE $... " />
               </folding>
             </state>
           </provider>
@@ -80,16 +86,24 @@
       <file leaf-file-name="NaiveBayesClassifier.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/cs235/classifiers/NaiveBayesClassifier.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="36" column="105" lean-forward="false" selection-start-line="36" selection-start-column="105" selection-end-line="36" selection-end-column="105" />
+            <state relative-caret-position="-1588">
+              <caret line="76" column="25" lean-forward="false" selection-start-line="76" selection-start-column="25" selection-end-line="76" selection-end-column="25" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#741#742#0" expanded="true" />
-                <element signature="e#777#778#0" expanded="true" />
+                <element signature="e#738#739#0" expanded="true" />
+                <element signature="e#774#775#0" expanded="true" />
                 <element signature="method#createTrainingTestSets#0;class#NaiveBayesClassifier#0" expanded="false" />
-                <element signature="method#separateBySeverity#0;class#NaiveBayesClassifier#0" expanded="false" />
-                <element signature="method#getTotalCount#0;class#NaiveBayesClassifier#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GridBasedClustering.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cs235/classifiers/GridBasedClustering.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="59" column="11" lean-forward="true" selection-start-line="59" selection-start-column="11" selection-end-line="59" selection-end-column="11" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -113,7 +127,14 @@
       <find>severityProbability</find>
       <find>/</find>
       <find>(double)</find>
+      <find>PostgresSQL</find>
     </findStrings>
+    <replaceStrings>
+      <replace>Main</replace>
+    </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
@@ -145,14 +166,14 @@
         <option value="$PROJECT_DIR$/src/main/java/com/cs235/dataMining/NaiveBayesClassifier.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cs235/dataMining/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cs235/database/SQLUtils.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cs235/CSVImporter.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cs235/GridBasedClustering.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cs235/NaiveBayesClassifier.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cs235/classifiers/NaiveBayesClassifier.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cs235/database/PostgresSQL.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cs235/classifiers/GridBasedClustering.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cs235/database/PostgresSQL.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cs235/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cs235/CSVImporter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cs235/classifiers/NaiveBayesClassifier.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cs235/classifiers/GridBasedClustering.java" />
       </list>
     </option>
   </component>
@@ -427,12 +448,12 @@
       <updated>1512067018729</updated>
       <workItem from="1512067020302" duration="23797000" />
       <workItem from="1512315212025" duration="8512000" />
-      <workItem from="1512324753228" duration="3849000" />
+      <workItem from="1512324753228" duration="4337000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36158000" />
+    <option name="totallyTimeSpent" value="36646000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -445,7 +466,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43411765" sideWeight="0.50277776" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18680556" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -499,11 +520,9 @@
           <caret line="24" column="3" lean-forward="false" selection-start-line="24" selection-start-column="3" selection-end-line="24" selection-end-column="3" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#741#742#0" expanded="true" />
-            <element signature="e#777#778#0" expanded="true" />
+            <element signature="e#738#739#0" expanded="true" />
+            <element signature="e#774#775#0" expanded="true" />
             <element signature="method#createTrainingTestSets#0;class#NaiveBayesClassifier#0" expanded="false" />
-            <element signature="method#separateBySeverity#0;class#NaiveBayesClassifier#0" expanded="false" />
-            <element signature="method#getTotalCount#0;class#NaiveBayesClassifier#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -524,11 +543,9 @@
           <caret line="38" column="0" lean-forward="true" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#741#742#0" expanded="true" />
-            <element signature="e#777#778#0" expanded="true" />
+            <element signature="e#738#739#0" expanded="true" />
+            <element signature="e#774#775#0" expanded="true" />
             <element signature="method#createTrainingTestSets#0;class#NaiveBayesClassifier#0" expanded="false" />
-            <element signature="method#separateBySeverity#0;class#NaiveBayesClassifier#0" expanded="false" />
-            <element signature="method#getTotalCount#0;class#NaiveBayesClassifier#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -616,14 +633,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs235/CSVImporter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-401">
-          <caret line="69" column="56" lean-forward="false" selection-start-line="69" selection-start-column="56" selection-end-line="69" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/cs235/database/SQLUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
@@ -672,38 +681,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs235/classifiers/NaiveBayesClassifier.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="36" column="105" lean-forward="false" selection-start-line="36" selection-start-column="105" selection-end-line="36" selection-end-column="105" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#741#742#0" expanded="true" />
-            <element signature="e#777#778#0" expanded="true" />
-            <element signature="method#createTrainingTestSets#0;class#NaiveBayesClassifier#0" expanded="false" />
-            <element signature="method#separateBySeverity#0;class#NaiveBayesClassifier#0" expanded="false" />
-            <element signature="method#getTotalCount#0;class#NaiveBayesClassifier#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/opencsv/opencsv/3.6/opencsv-3.6.jar!/com/opencsv/CSVWriter.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="182">
           <caret line="142" column="0" lean-forward="false" selection-start-line="142" selection-start-column="0" selection-end-line="142" selection-end-column="0" />
           <folding>
             <element signature="e#4223#4224#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs235/database/PostgresSQL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="7" column="78" lean-forward="false" selection-start-line="7" selection-start-column="78" selection-end-line="7" selection-end-column="78" />
-          <folding>
-            <marker date="1512404588915" expanded="true" signature="291:305" ph="DROP TABLE $... " />
-            <marker date="1512404588915" expanded="true" signature="291:309" ph="DROP TABLE $... " />
           </folding>
         </state>
       </provider>
@@ -716,21 +699,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs235/classifiers/GridBasedClustering.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs235/database/PostgresSQL.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="837">
-          <caret line="95" column="66" lean-forward="false" selection-start-line="95" selection-start-column="66" selection-end-line="95" selection-end-column="66" />
+        <state relative-caret-position="75">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs235/CSVImporter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-157">
+          <caret line="108" column="15" lean-forward="false" selection-start-line="108" selection-start-column="15" selection-end-line="108" selection-end-column="15" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/cs235/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="511">
-          <caret line="44" column="90" lean-forward="false" selection-start-line="44" selection-start-column="90" selection-end-line="44" selection-end-column="90" />
+        <state relative-caret-position="471">
+          <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs235/classifiers/NaiveBayesClassifier.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1588">
+          <caret line="76" column="25" lean-forward="false" selection-start-line="76" selection-start-column="25" selection-end-line="76" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#738#739#0" expanded="true" />
+            <element signature="e#774#775#0" expanded="true" />
+            <element signature="method#createTrainingTestSets#0;class#NaiveBayesClassifier#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs235/classifiers/GridBasedClustering.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="59" column="11" lean-forward="true" selection-start-line="59" selection-start-column="11" selection-end-line="59" selection-end-column="11" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -1,6 +1,6 @@
 package com.cs235.classifiers;
 
-import com.cs235.database.PostgresSQL;
+import com.cs235.Main;
 import com.cs235.database.SQLUtils;
 import com.esri.core.geometry.Geometry;
 import com.esri.core.geometry.GeometryEngine;
@@ -42,7 +42,7 @@ public class GridBasedClustering {
       .append(String.format(" GROUP BY floor(%s/%.20f), floor(%s/%.20f) ", SQLUtils.escapeIdentifier(COL_X), BOX_SIZE, SQLUtils.escapeIdentifier(COL_Y), BOX_SIZE))
       .toString();
 
-    try (Connection connection = DriverManager.getConnection(PostgresSQL.POSTGRES_URL);
+    try (Connection connection = DriverManager.getConnection(Main.POSTGRES_URL);
          PreparedStatement ps = connection.prepareStatement(binQuery)) {
       // calculate the gid based clusters to select the top N dense areas
       return createGenerateBinOutput(ps.executeQuery());

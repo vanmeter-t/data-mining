@@ -2,10 +2,10 @@ package com.cs235.classifiers;
 
 import com.cs235.Main;
 import com.cs235.database.IdGenerator;
-import com.cs235.database.PostgresSQL;
 import com.cs235.database.SQLUtils;
 import com.cs235.database.StringTemplate;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class NaiveBayesClassifier {
     Map<Integer, Map<String, Map<String, Double>>> trainedProbabilities = train();
     Double accuracy = executeOnTestData(trainedProbabilities);
 
-    Gson gson = new Gson();
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
     String json = gson.toJson(trainedProbabilities);
 
     return String.format("\n\nNaive Bayes Accuracy %s\n\nTraining Set Probabilities:%s", accuracy, json);
@@ -53,7 +53,7 @@ public class NaiveBayesClassifier {
       .put("trainingTable", SQLUtils.escapeIdentifier(trainingDataTable))
       .build();
 
-    try (Connection connection = DriverManager.getConnection(PostgresSQL.POSTGRES_URL);
+    try (Connection connection = DriverManager.getConnection(Main.POSTGRES_URL);
          PreparedStatement trainPs = connection.prepareStatement(trainingSql);
          PreparedStatement testPs = connection.prepareStatement(testSql)) {
       trainPs.execute();
@@ -71,7 +71,7 @@ public class NaiveBayesClassifier {
       .put("table", SQLUtils.escapeIdentifier(tableName))
       .build();
 
-    try (Connection connection = DriverManager.getConnection(PostgresSQL.POSTGRES_URL);
+    try (Connection connection = DriverManager.getConnection(Main.POSTGRES_URL);
          PreparedStatement ps = connection.prepareStatement(getDistinctSql)) {
       ResultSet rs = ps.executeQuery();
       while (rs.next()) {
@@ -97,7 +97,7 @@ public class NaiveBayesClassifier {
 
   public int getTotalCount(String table) throws Exception {
     String countSql = getCount.put("tableName", SQLUtils.escapeIdentifier(table)).build();
-    try (Connection connection = DriverManager.getConnection(PostgresSQL.POSTGRES_URL);
+    try (Connection connection = DriverManager.getConnection(Main.POSTGRES_URL);
          PreparedStatement ps = connection.prepareStatement(countSql)) {
       ResultSet rs = ps.executeQuery();
       if (rs.next()) {
@@ -111,7 +111,7 @@ public class NaiveBayesClassifier {
     Map<Integer, Double> out = new LinkedHashMap<>();
     for (Map.Entry<Integer, String> entry : severityTables.entrySet()) {
       String countSql = getCount.put("tableName", SQLUtils.escapeIdentifier(entry.getValue())).build();
-      try (Connection connection = DriverManager.getConnection(PostgresSQL.POSTGRES_URL);
+      try (Connection connection = DriverManager.getConnection(Main.POSTGRES_URL);
            PreparedStatement ps = connection.prepareStatement(countSql)) {
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
@@ -127,7 +127,7 @@ public class NaiveBayesClassifier {
     Map<Integer, Integer> out = new LinkedHashMap<>();
     for (Map.Entry<Integer, String> entry : severityTables.entrySet()) {
       String countSql = getCount.put("tableName", SQLUtils.escapeIdentifier(entry.getValue())).build();
-      try (Connection connection = DriverManager.getConnection(PostgresSQL.POSTGRES_URL);
+      try (Connection connection = DriverManager.getConnection(Main.POSTGRES_URL);
            PreparedStatement ps = connection.prepareStatement(countSql)) {
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
@@ -179,7 +179,7 @@ public class NaiveBayesClassifier {
       .put("column", SQLUtils.escapeIdentifier(column))
       .put("tableName", SQLUtils.escapeIdentifier(table)).build();
 
-    try (Connection connection = DriverManager.getConnection(PostgresSQL.POSTGRES_URL);
+    try (Connection connection = DriverManager.getConnection(Main.POSTGRES_URL);
          PreparedStatement ps = connection.prepareStatement(distinctCountSql)) {
       ResultSet rs = ps.executeQuery();
       while (rs.next()) {
@@ -210,7 +210,7 @@ public class NaiveBayesClassifier {
           .put("fields", Main.attributes.stream().map(SQLUtils::escapeIdentifier).collect(Collectors.joining(",")))
           .put("tableName", SQLUtils.escapeIdentifier(severityTable)).build();
 
-        try (Connection connection = DriverManager.getConnection(PostgresSQL.POSTGRES_URL);
+        try (Connection connection = DriverManager.getConnection(Main.POSTGRES_URL);
              PreparedStatement ps = connection.prepareStatement(testDataSql)) {
           ResultSet rs = ps.executeQuery();
           while (rs.next()) {

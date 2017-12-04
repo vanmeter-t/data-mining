@@ -1,7 +1,6 @@
 package com.cs235;
 
 import com.cs235.database.IdGenerator;
-import com.cs235.database.PostgresSQL;
 import com.cs235.database.SQLUtils;
 import com.cs235.database.StringTemplate;
 import com.opencsv.CSVReader;
@@ -109,7 +108,7 @@ public class CSVImporter {
       .put("fields", fieldsForCreateTable.stream().collect(Collectors.joining(",")))
       .build();
 
-    try (Connection connection = DriverManager.getConnection(PostgresSQL.POSTGRES_URL);
+    try (Connection connection = DriverManager.getConnection(Main.POSTGRES_URL);
          PreparedStatement ps = connection.prepareStatement(createTableSql)) {
       ps.execute();
     }
@@ -120,7 +119,7 @@ public class CSVImporter {
       .put("constraints", "HEADER DELIMITER ',' QUOTE '\"' ESCAPE E'\\\\' ")
       .build();
 
-    try (Connection connection = DriverManager.getConnection(PostgresSQL.POSTGRES_URL);
+    try (Connection connection = DriverManager.getConnection(Main.POSTGRES_URL);
          FileInputStream fileInputStream = new FileInputStream(file.getAbsoluteFile());
          InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8)) {
       CopyManager copyManager = new CopyManager(connection.unwrap(BaseConnection.class));
