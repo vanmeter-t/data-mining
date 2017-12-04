@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.esri.sde.sdk:jpe-sdk-data:10.5.1.7333">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/esri/sde/sdk/jpe-sdk-data/10.5.1.7333/jpe-sdk-data-10.5.1.7333.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/esri/sde/sdk/jpe-sdk-data/10.5.1.7333/jpe-sdk-data-10.5.1.7333-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/esri/sde/sdk/jpe-sdk-data/10.5.1.7333/jpe-sdk-data-10.5.1.7333-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.esri.agol.sds:dialect-provider:10.5.1.7333">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/esri/agol/sds/dialect-provider/10.5.1.7333/dialect-provider-10.5.1.7333.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/esri/agol/sds/dialect-provider/10.5.1.7333/dialect-provider-10.5.1.7333-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/esri/agol/sds/dialect-provider/10.5.1.7333/dialect-provider-10.5.1.7333-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

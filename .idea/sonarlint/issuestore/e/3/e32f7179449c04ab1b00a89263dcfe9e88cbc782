@@ -1,0 +1,22 @@
+
+csquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(ˆ×å¼8Ó«üê,
+qsquid:S2259"PA "NullPointerException" could be thrown; "classifiedSeverity" is nullable here.(Ë¹¥¦ÿÿÿÿÿ8²õ–ì,
+csquid:S2095"GUse try-with-resources or close this "ResultSet" in a "finally" clause.(·¦Ã…8Ì©ë,
+Ysquid:S1612"=Replace this lambda with method reference 'Objects::nonNull'.(î¨š 8—Š©ì,
+esquid:S1192"IDefine a constant instead of duplicating this literal "newTable" 3 times.(»ø¶¿8ìñì­,
+nsquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 27 to the 15 allowed.(ş‹Ë„8‡Ìóë,
+csquid:S2095"GUse try-with-resources or close this "ResultSet" in a "finally" clause.(·¦Ã…8Ó«üê,
+asquid:S1192"FDefine a constant instead of duplicating this literal "table" 4 times.(ÀÄÉ78˜œç­,
+hsquid:S2095"GUse try-with-resources or close this "Statement" in a "finally" clause.(õ½ÛØşÿÿÿÿ8º“¿­,
+csquid:S2095"GUse try-with-resources or close this "ResultSet" in a "finally" clause.(·¦Ã…8â¤†­,
+csquid:S2095"GUse try-with-resources or close this "ResultSet" in a "finally" clause.(·¦Ã…8èºÆê,
+T
+squid:S106"9Replace this use of System.out or System.err by a logger.(¼Åªâ8ÈÈÄì,
+\squid:S2184"@Cast one of the operands of this integer division to a "double".(§×†Ö8§Ëê,
+csquid:S2095"GUse try-with-resources or close this "ResultSet" in a "finally" clause.(·¦Ã…8»¥Æé,
+hsquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(á€€èÿÿÿÿÿ8Âà€­,
+hsquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(Î˜âıÿÿÿÿ8ĞÊÇê,
+ksquid:S1192"JDefine a constant instead of duplicating this literal "tableName" 4 times.(üı­¢øÿÿÿÿ8è¯èê,
+csquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(Óş„£8Óş„®,
+msquid:S3457"Q%n should be used in place of \n to produce the platform-specific line separator.(¼Åªâ8‘’Çì,
+hsquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8²õ–ì,

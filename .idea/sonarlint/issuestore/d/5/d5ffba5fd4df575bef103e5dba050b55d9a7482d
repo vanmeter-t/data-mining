@@ -1,0 +1,4 @@
+
+€squid:S1149"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(ÜêÇèûÿÿÿÿ8£ˆ‘¥,
+hsquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8£ˆ‘¥,
+lsquid:CallToDeprecatedMethod"?Remove this use of "appendEscapedIdentifier"; it is deprecated.(ü¼ëÒ8£ˆ‘¥,

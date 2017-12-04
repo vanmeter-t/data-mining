@@ -1,0 +1,36 @@
+
+Vsquid:S1444"5Make this "public static TIME_CAT_COLUMN" field final(×‰İöûÿÿÿÿ8Ÿº¥è,
+Usquid:S1444"4Make this "public static WEATHER_COLUMN" field final(¶ÜìËúÿÿÿÿ8Ÿº¥è,
+{squid:S3008"ZRename this field "TIME_CAT_COLUMN" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(×‰İöûÿÿÿÿ8Ÿº¥è,
+vsquid:S3008"ZRename this field "COL_TYPE_COLUMN" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÃÊ¼Ş8Ÿº¥è,
+"squid:ClassVariableVisibilityCheck"[Make LIGHTING_COLUMN a static final constant or non-public and provide accessors if needed.(íâĞı8Ÿº¥è,
+vsquid:S3008"ZRename this field "LIGHTING_COLUMN" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(íâĞı8Ÿº¥è,
+lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ãĞÆ™ıÿÿÿÿ8ö¼è,
+Wsquid:S1444"6Make this "public static ROAD_COND_COLUMN" field final(¢¿ûøÿÿÿÿ8Ÿº¥è,
+"squid:ClassVariableVisibilityCheck"VMake attributes a static final constant or non-public and provide accessors if needed.(ï§¸çûÿÿÿÿ8½Ÿé,
+”"squid:ClassVariableVisibilityCheck"\Make ROAD_COND_COLUMN a static final constant or non-public and provide accessors if needed.(¢¿ûøÿÿÿÿ8Ÿº¥è,
+Qsquid:S1444"0Make this "public static OID_COLUMN" field final(ÇÒ©Ùüÿÿÿÿ8’‚ò­,
+“"squid:ClassVariableVisibilityCheck"[Make SEVERITY_COLUMN a static final constant or non-public and provide accessors if needed.(Öóûÿÿÿÿÿ8±üû¬,
+{squid:S3008"ZRename this field "SEVERITY_COLUMN" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Öóûÿÿÿÿÿ8±üû¬,
+|squid:S3008"[Rename this field "ROAD_COND_COLUMN" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢¿ûøÿÿÿÿ8Ÿº¥è,
+Msquid:S3599",Use another way to initialize this instance.(ï§¸çûÿÿÿÿ8½Ÿé,
+zsquid:S1171"YMove the contents of this initializer to a standard constructor or to field initializers.(ï§¸çûÿÿÿÿ8½Ÿé,
+"squid:ClassVariableVisibilityCheck"[Make COL_TYPE_COLUMN a static final constant or non-public and provide accessors if needed.(ÃÊ¼Ş8Ÿº¥è,
+Vsquid:S1444"5Make this "public static SEVERITY_COLUMN" field final(Öóûÿÿÿÿÿ8±üû¬,
+Usquid:S1444"4Make this "public static ALCOHOL_COLUMN" field final(òÅÀàøÿÿÿÿ8Ÿº¥è,
+zsquid:S3008"YRename this field "ALCOHOL_COLUMN" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(òÅÀàøÿÿÿÿ8Ÿº¥è,
+Rsquid:S1444"6Make this "public static ROAD_SURF_COLUMN" field final(Ãò“8Ÿº¥è,
+vsquid:S3008"URename this field "OID_COLUMN" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÇÒ©Ùüÿÿÿÿ8’‚ò­,
+Qsquid:S1444"5Make this "public static LIGHTING_COLUMN" field final(íâĞı8Ÿº¥è,
+Qsquid:S1444"0Make this "public static attributes" field final(ï§¸çûÿÿÿÿ8Æò™é,
+’"squid:ClassVariableVisibilityCheck"ZMake WEATHER_COLUMN a static final constant or non-public and provide accessors if needed.(¶ÜìËúÿÿÿÿ8Ÿº¥è,
+"squid:ClassVariableVisibilityCheck"VMake OID_COLUMN a static final constant or non-public and provide accessors if needed.(ÇÒ©Ùüÿÿÿÿ8’‚ò­,
+Qsquid:S1444"5Make this "public static COL_TYPE_COLUMN" field final(ÃÊ¼Ş8Ÿº¥è,
+bsquid:S1075"ARefactor your code to get this URI from a customizable parameter.(‚Ì‰ßøÿÿÿÿ8œğè,
+’"squid:ClassVariableVisibilityCheck"ZMake ALCOHOL_COLUMN a static final constant or non-public and provide accessors if needed.(òÅÀàøÿÿÿÿ8Ÿº¥è,
+>squid:S2386"Make this member "protected".(ï§¸çûÿÿÿÿ8Æò™é,
+zsquid:S3008"YRename this field "WEATHER_COLUMN" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¶ÜìËúÿÿÿÿ8Ÿº¥è,
+lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(óò¢õÿÿÿÿÿ8‹Ï–è,
+“"squid:ClassVariableVisibilityCheck"[Make TIME_CAT_COLUMN a static final constant or non-public and provide accessors if needed.(×‰İöûÿÿÿÿ8Ÿº¥è,
+"squid:ClassVariableVisibilityCheck"\Make ROAD_SURF_COLUMN a static final constant or non-public and provide accessors if needed.(Ãò“8Ÿº¥è,
+wsquid:S3008"[Rename this field "ROAD_SURF_COLUMN" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ãò“8Ÿº¥è,

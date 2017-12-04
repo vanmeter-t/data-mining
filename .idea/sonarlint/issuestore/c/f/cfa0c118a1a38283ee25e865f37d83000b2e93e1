@@ -1,0 +1,13 @@
+
+|squid:S00115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(Í¬ó‹ùÿÿÿÿ8ñ‡,
+|squid:S00115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(ÚŸõúÿÿÿÿ8ñ‡,
+|squid:S00115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(Òü„½ÿÿÿÿÿ8ñ‡,
+]squid:CallToDeprecatedMethod"0Remove this use of "isNumber"; it is deprecated.(ôÂš8ñ‡,
+hsquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8ñ‡,
+|squid:S00115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(®­¼åüÿÿÿÿ8ñ‡,
+wsquid:S00115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(¦ßö„8ñ‡,
+wsquid:S00115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(ûæ—É8ñ‡,
+wsquid:S00115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(É±ª³8ñ‡,
+hsquid:S1192"LDefine a constant instead of duplicating this literal "constraints" 3 times.(ÌÎúœ8“øè ,
+csquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(ª…ò÷8ñ‡,
+nsquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 23 to the 15 allowed.(½İè˜8ñ‡,
