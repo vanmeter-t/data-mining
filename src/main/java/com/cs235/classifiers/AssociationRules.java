@@ -124,6 +124,7 @@ public class AssociationRules extends Classifier {
       return;
     }
 
+    // FIXME: need to only generate additional lists if the two start with the same or size = 1
     for (int i = startIdx; i < itemsets.size(); ++i) {
       List<Attribute> addList = itemsets.get(i);
       if (!addList.equals(current) && current.stream().noneMatch(a -> a.feature.equals(addList.get(depth).feature))) {

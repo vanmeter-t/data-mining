@@ -2,19 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="804da9fb-47a5-4c31-921b-e48b246d7715" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/cs235/Attribute.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/cs235/Features.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/cs235/classifiers/AssociationRules.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/cs235/classifiers/Classifier.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/cs235/classifiers/DecisionTree.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/artifacts/cs235_project_jar/cs235_project.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/cs235/Main$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/cs235/Main.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/cs235/classifiers/NaiveBayesClassifier.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/cs235Project.GridBasedClustering.tsv" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/cs235/Main.java" afterPath="$PROJECT_DIR$/src/main/java/com/cs235/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/cs235/classifiers/NaiveBayesClassifier.java" afterPath="$PROJECT_DIR$/src/main/java/com/cs235/classifiers/NaiveBayesClassifier.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/cs235/classifiers/AssociationRules.java" afterPath="$PROJECT_DIR$/src/main/java/com/cs235/classifiers/AssociationRules.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -81,8 +69,8 @@
       <file leaf-file-name="AssociationRules.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/cs235/classifiers/AssociationRules.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="121" column="36" lean-forward="false" selection-start-line="121" selection-start-column="36" selection-end-line="121" selection-end-column="36" />
+            <state relative-caret-position="202">
+              <caret line="126" column="95" lean-forward="false" selection-start-line="126" selection-start-column="95" selection-end-line="126" selection-end-column="95" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#513#514#0" expanded="true" />
@@ -447,12 +435,12 @@
       <updated>1512067018729</updated>
       <workItem from="1512067020302" duration="23797000" />
       <workItem from="1512315212025" duration="8512000" />
-      <workItem from="1512324753228" duration="18101000" />
+      <workItem from="1512324753228" duration="18602000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50410000" />
+    <option name="totallyTimeSpent" value="50911000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -508,13 +496,13 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/cs235/classifiers/AssociationRules.java</url>
           <line>117</line>
           <properties />
-          <option name="timeStamp" value="86" />
+          <option name="timeStamp" value="88" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="87" />
+      <option name="time" value="89" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -826,8 +814,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/cs235/classifiers/AssociationRules.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="121" column="36" lean-forward="false" selection-start-line="121" selection-start-column="36" selection-end-line="121" selection-end-column="36" />
+        <state relative-caret-position="202">
+          <caret line="126" column="95" lean-forward="false" selection-start-line="126" selection-start-column="95" selection-end-line="126" selection-end-column="95" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#513#514#0" expanded="true" />
