@@ -1,6 +1,6 @@
 # CS234 Final Project: Data Mining Traffic Accident Data
 
-Trevor Van Meter (tvanm001@ucr.edu)
+Trevor Van Meter
 
 ## Installation
 
