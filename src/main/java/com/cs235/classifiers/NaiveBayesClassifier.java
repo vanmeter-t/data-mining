@@ -1,31 +1,46 @@
 package com.cs235.classifiers;
 
+import com.cs235.Features;
 import com.cs235.Main;
-import com.cs235.database.IdGenerator;
 import com.cs235.database.SQLUtils;
 import com.cs235.database.StringTemplate;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class NaiveBayesClassifier {
+public class NaiveBayesClassifier extends Classifier {
 
-  private final String tableName;
-  private String trainingDataTable;
-  private String testDataTable;
   private Map<Integer, Double> severityTypeProbabilities;
-  private StringTemplate getCount = new StringTemplate("SELECT COUNT(*) FROM ${tableName}");
 
   public NaiveBayesClassifier(String tableName) {
-    this.tableName = tableName;
+    super(tableName);
   }
 
+  /**
+   * Execute Naive Bayes Classifier
+   * 1. Separate the datasets into trained & test datasets
+   * 2. The "given" in this case will be the attributes  i.e. P(Severity_Level|X)
+   * 3. Train the classifier with the trained dataset
+   * a. Break the data down into the separate Severity levels
+   * b. For each severity level calculate the probability of all possible attribute values
+   * c. Hold the results in a map to be used to calculate the Probability on the training dataset
+   * 4. Classify the test dataset and calculate the accuracy of the classifier
+   * a. For each record, given the attribute values, determine the probability for each severity level
+   * b. Select the highest probability and compare to the actual severity level to determine accuracy
+   *
+   * @return the string of results: Accuracy, and the JSON data with the probabilities for all attribute values
+   * @throws Exception
+   */
+  @Override
   public String execute() throws Exception {
     createTrainingTestSets(tableName);
     Map<Integer, Map<String, Map<String, Double>>> trainedProbabilities = train();
@@ -37,78 +52,16 @@ public class NaiveBayesClassifier {
     return String.format("\n\nNaive Bayes Accuracy %s\n\nTraining Set Probabilities:%s", accuracy, json);
   }
 
-  public void createTrainingTestSets(String tableName) throws Exception {
-
-    trainingDataTable = IdGenerator.generate("training_");
-    String trainingSql = new StringTemplate("CREATE TABLE ${newTable} AS SELECT * FROM ${table} WHERE (random() <= 0.80)")
-      .put("newTable", SQLUtils.escapeIdentifier(trainingDataTable))
-      .put("table", SQLUtils.escapeIdentifier(tableName))
-      .build();
-
-    testDataTable = IdGenerator.generate("test_");
-    String testSql = new StringTemplate("CREATE TABLE ${newTable} AS SELECT * FROM ${table} WHERE ${oid} NOT IN (SELECT ${oid} FROM ${trainingTable})")
-      .put("newTable", SQLUtils.escapeIdentifier(testDataTable))
-      .put("table", SQLUtils.escapeIdentifier(tableName))
-      .put("oid", SQLUtils.escapeIdentifier(Main.OID_COLUMN))
-      .put("trainingTable", SQLUtils.escapeIdentifier(trainingDataTable))
-      .build();
-
-    try (Connection connection = DriverManager.getConnection(Main.POSTGRES_URL);
-         PreparedStatement trainPs = connection.prepareStatement(trainingSql);
-         PreparedStatement testPs = connection.prepareStatement(testSql)) {
-      trainPs.execute();
-      testPs.execute();
-    }
-  }
-
-  public Map<Integer, String> separateBySeverity(String tableName) throws Exception {
-
-    Map<Integer, String> severityLevelToTable = new LinkedHashMap<>();
-
-    // create multiple tables of the different severitys
-    String getDistinctSql = new StringTemplate("SELECT DISTINCT ${field} AS severity FROM ${table}")
-      .put("field", SQLUtils.escapeIdentifier(Main.SEVERITY_COLUMN))
-      .put("table", SQLUtils.escapeIdentifier(tableName))
-      .build();
-
-    try (Connection connection = DriverManager.getConnection(Main.POSTGRES_URL);
-         PreparedStatement ps = connection.prepareStatement(getDistinctSql)) {
-      ResultSet rs = ps.executeQuery();
-      while (rs.next()) {
-        Integer severity = rs.getInt("severity");
-        String sevTableName = IdGenerator.generate(tableName + "_" + severity.toString() + "_");
-
-        String createSeverityTable = new StringTemplate("CREATE TABLE ${newTable} AS (SELECT ${fields} FROM ${table} WHERE ${field} = ${severity})")
-          .put("newTable", SQLUtils.escapeIdentifier(sevTableName))
-          .put("fields", Main.attributes.stream().map(SQLUtils::escapeIdentifier).collect(Collectors.joining(",")))
-          .put("table", SQLUtils.escapeIdentifier(tableName))
-          .put("field", SQLUtils.escapeIdentifier(Main.SEVERITY_COLUMN))
-          .put("severity", severity)
-          .build();
-
-        Statement stmt = connection.createStatement();
-        stmt.execute(createSeverityTable);
-
-        severityLevelToTable.put(severity, sevTableName);
-      }
-    }
-    return severityLevelToTable;
-  }
-
-  public int getTotalCount(String table) throws Exception {
-    String countSql = getCount.put("tableName", SQLUtils.escapeIdentifier(table)).build();
-    try (Connection connection = DriverManager.getConnection(Main.POSTGRES_URL);
-         PreparedStatement ps = connection.prepareStatement(countSql)) {
-      ResultSet rs = ps.executeQuery();
-      if (rs.next()) {
-        return rs.getInt(1);
-      }
-    }
-    return 0;
-  }
-
-  public Map<Integer, Double> getSeverityProbability(int total, Map<Integer, String> severityTables) throws Exception {
+  /**
+   * For each severity, get the probability that it will occur in the training dataset
+   *
+   * @param severityTables - each of the corresponding database tables for each severity level
+   * @return a map of severity to the probability of that severity
+   * @throws Exception
+   */
+  public Map<Integer, Double> getSeverityProbability(Map<Integer, String> severityTables) throws Exception {
     Map<Integer, Double> out = new LinkedHashMap<>();
+    int trainingTotal = getTotalCount(trainingDataTable);
     for (Map.Entry<Integer, String> entry : severityTables.entrySet()) {
       String countSql = getCount.put("tableName", SQLUtils.escapeIdentifier(entry.getValue())).build();
       try (Connection connection = DriverManager.getConnection(Main.POSTGRES_URL);
@@ -116,13 +69,20 @@ public class NaiveBayesClassifier {
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
           Integer severityCount = rs.getInt(1);
-          out.put(entry.getKey(), (double) severityCount / total);
+          out.put(entry.getKey(), (double) severityCount / trainingTotal);
         }
       }
     }
     return out;
   }
 
+  /**
+   * For each severity level, determine the total count
+   *
+   * @param severityTables - the severity level and corresponding database table
+   * @return map of severity level to the total count
+   * @throws Exception
+   */
   public Map<Integer, Integer> getSeverityCount(Map<Integer, String> severityTables) throws Exception {
     Map<Integer, Integer> out = new LinkedHashMap<>();
     for (Map.Entry<Integer, String> entry : severityTables.entrySet()) {
@@ -139,7 +99,7 @@ public class NaiveBayesClassifier {
   }
 
   /**
-   * FROM TRAINING DATA
+   * * FROM TRAINING DATA
    * for each severity, for each attribute column, determine the probability given the severity
    * P(Alcohol - Yes | Severity_1)=0.66
    * P(Alcohol - No | Severity_1)=0.66
@@ -149,21 +109,22 @@ public class NaiveBayesClassifier {
    * P(Weather D | Severity_1)=0.33
    * P(RoadCondition A | Severity_1)=0.33
    * P(RoadCondition B | Severity_1)=0.33
-   * ...
+   *
+   * @return mapping for each severity level, for each attribute column, for each attribute column value, the probability of P(Severity|X)
+   * @throws Exception
    */
   public Map<Integer, Map<String, Map<String, Double>>> train() throws Exception {
-    int trainingTotal = getTotalCount(trainingDataTable);
     Map<Integer, String> severityTables = separateBySeverity(trainingDataTable);
     Map<Integer, Integer> severityTypeCount = getSeverityCount(severityTables);
-    severityTypeProbabilities = getSeverityProbability(trainingTotal, severityTables);
+    severityTypeProbabilities = getSeverityProbability(severityTables);
 
     Map<Integer, Map<String, Map<String, Double>>> trainedClassifier = new LinkedHashMap<>();
     for (Map.Entry<Integer, String> entry : severityTables.entrySet()) {
       Integer severity = entry.getKey();
       Map<String, Map<String, Double>> featureMapping = new LinkedHashMap<>();
-      for (String attribute : Main.attributes) {
-        Map<String, Double> featureProb = getFeatureProbabilities(severityTables.get(severity), attribute, severityTypeCount.get(severity));
-        featureMapping.put(attribute, featureProb);
+      for (Features attribute : attributes) {
+        Map<String, Double> featureProb = getAttributeValProbabilities(severityTables.get(severity), attribute.getLabel(), severityTypeCount.get(severity));
+        featureMapping.put(attribute.getLabel(), featureProb);
       }
       trainedClassifier.put(severity, featureMapping);
     }
@@ -171,28 +132,11 @@ public class NaiveBayesClassifier {
   }
 
   /**
-   * generate the probability for each feature given the severity level
-   */
-  public Map<String, Double> getFeatureProbabilities(String table, String column, int totalCount) throws Exception {
-    Map<String, Double> featureProb = new LinkedHashMap<>();
-    String distinctCountSql = new StringTemplate("SELECT ${column}, COUNT(*) FROM ${tableName} GROUP BY ${column}")
-      .put("column", SQLUtils.escapeIdentifier(column))
-      .put("tableName", SQLUtils.escapeIdentifier(table)).build();
-
-    try (Connection connection = DriverManager.getConnection(Main.POSTGRES_URL);
-         PreparedStatement ps = connection.prepareStatement(distinctCountSql)) {
-      ResultSet rs = ps.executeQuery();
-      while (rs.next()) {
-        String featureValue = rs.getString(1);
-        Integer featureCount = rs.getInt(2);
-        featureProb.put(featureValue, (double) featureCount / totalCount);
-      }
-    }
-    return featureProb;
-  }
-
-  /**
    * for each feature, determine the severity class that the trainedProbabilities would classify as based on Naive Bayes
+   *
+   * @param trainedProbabilities the probabilities for each attribute value given a certain severity level
+   * @return the accuracy of the classifier
+   * @throws Exception
    */
   public Double executeOnTestData(Map<Integer, Map<String, Map<String, Double>>> trainedProbabilities) throws Exception {
 
@@ -207,7 +151,7 @@ public class NaiveBayesClassifier {
 
         String severityTable = severityLevelToTable.get(actualSeverity);
         String testDataSql = new StringTemplate("SELECT ${fields} FROM ${tableName}")
-          .put("fields", Main.attributes.stream().map(SQLUtils::escapeIdentifier).collect(Collectors.joining(",")))
+          .put("fields", attributes.stream().map(Features::getLabel).map(SQLUtils::escapeIdentifier).collect(Collectors.joining(",")))
           .put("tableName", SQLUtils.escapeIdentifier(severityTable)).build();
 
         try (Connection connection = DriverManager.getConnection(Main.POSTGRES_URL);
@@ -244,11 +188,17 @@ public class NaiveBayesClassifier {
 
   /**
    * for this record, get all of the probabilities from the trained data and generate the final probability given the severity level
+   *
+   * @param rs          result set containing the single record from the training set
+   * @param severity    current severity level to determine the probability for given the records attribute values
+   * @param trainedData trained data probabilities used as a lookup
+   * @return probability for P(Severity|X) where X is a vector of all attribute values for this record
+   * @throws Exception
    */
   private Double getRecordProbabilityPerSeverity(ResultSet rs, Integer severity, Map<String, Map<String, Double>> trainedData) throws Exception {
     List<Double> out = new ArrayList<>();
-    for (String attribute : Main.attributes) {
-      String featureValue = rs.getString(attribute);
+    for (Features attribute : attributes) {
+      String featureValue = rs.getString(attribute.getLabel());
       if (trainedData.containsKey(attribute)) {
         out.add(trainedData.get(attribute).get(featureValue));
       }
