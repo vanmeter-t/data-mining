@@ -24,3 +24,6 @@ npm-debug.log
 
 #local builds
 build.bat
+
+#large files
+.csv
