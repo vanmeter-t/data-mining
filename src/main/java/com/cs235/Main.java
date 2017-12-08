@@ -1,6 +1,6 @@
 package com.cs235;
 
-import com.cs235.classifiers.AssociationRules;
+import com.cs235.classifiers.DecisionTree;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -34,11 +34,11 @@ public class Main {
 //      NaiveBayesClassifier naiveBayesClassifier = new NaiveBayesClassifier(tableName);
 //      writer.write(naiveBayesClassifier.execute());
 
-      AssociationRules associationRules = new AssociationRules(tableName);
-      writer.write(associationRules.execute());
+//      AssociationRules associationRules = new AssociationRules(tableName);
+//      writer.write(associationRules.execute());
 
-//      DecisionTree decisionTree = new DecisionTree(tableName);
-//      writer.write(decisionTree.execute());
+      DecisionTree decisionTree = new DecisionTree(tableName);
+      writer.write(decisionTree.execute());
     }
 
     System.exit(0); //success

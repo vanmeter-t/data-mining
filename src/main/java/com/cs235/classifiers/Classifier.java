@@ -1,5 +1,6 @@
 package com.cs235.classifiers;
 
+import com.cs235.Attribute;
 import com.cs235.Features;
 import com.cs235.Main;
 import com.cs235.database.IdGenerator;
@@ -15,7 +16,18 @@ import java.util.stream.Collectors;
 
 public abstract class Classifier {
 
-  protected static List<Features> attributes = new ArrayList<Features>() {{
+  protected static final List<Features> attributes = new ArrayList<Features>() {{
+    add(Features.WEATHER_COLUMN);
+    add(Features.ALCOHOL_COLUMN);
+    add(Features.TIME_CAT_COLUMN);
+    add(Features.COL_TYPE_COLUMN);
+    add(Features.ROAD_SURF_COLUMN);
+    add(Features.ROAD_COND_COLUMN);
+    add(Features.LIGHTING_COLUMN);
+  }};
+
+  protected static final List<Features> allAttributes = new ArrayList<Features>() {{
+    add(Features.SEVERITY_COLUMN);
     add(Features.WEATHER_COLUMN);
     add(Features.ALCOHOL_COLUMN);
     add(Features.TIME_CAT_COLUMN);
@@ -32,6 +44,34 @@ public abstract class Classifier {
 
   public Classifier(String tableName) {
     this.tableName = tableName;
+  }
+
+  /**
+   * Get all records for the specific columns to determine all existing itemsets
+   *
+   * @param tableName
+   * @return
+   * @throws Exception
+   */
+  protected static List<List<Attribute>> loadItemsets(String tableName) throws Exception {
+    List<List<Attribute>> dataset = new ArrayList<>();
+
+    String itemsetsSql = new StringTemplate("SELECT ${fields} FROM ${tableName}")
+      .put("fields", allAttributes.stream().map(Features::getLabel).map(SQLUtils::escapeIdentifier).collect(Collectors.joining(",")))
+      .put("tableName", SQLUtils.escapeIdentifier(tableName)).build();
+
+    try (Connection connection = DriverManager.getConnection(Main.POSTGRES_URL);
+         PreparedStatement ps = connection.prepareStatement(itemsetsSql)) {
+      ResultSet rs = ps.executeQuery();
+      while (rs.next()) {
+        List<Attribute> recordValues = new ArrayList<>();
+        for (Features attribute : allAttributes) {
+          recordValues.add(new Attribute(attribute, rs.getString(attribute.getLabel())));
+        }
+        dataset.add(recordValues);
+      }
+    }
+    return dataset;
   }
 
   public abstract String execute() throws Exception;

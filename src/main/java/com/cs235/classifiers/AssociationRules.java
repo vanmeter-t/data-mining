@@ -2,37 +2,30 @@ package com.cs235.classifiers;
 
 import com.cs235.Attribute;
 import com.cs235.Features;
-import com.cs235.Main;
-import com.cs235.database.SQLUtils;
-import com.cs235.database.StringTemplate;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class AssociationRules extends Classifier {
 
-  private static final double minSupport = 0.2;
-  private static final double minConfidence = 0.75;
-
-  private static final List<Features> associationAttributes = new ArrayList<Features>() {{
-    add(Features.SEVERITY_COLUMN);
-    add(Features.WEATHER_COLUMN);
-    add(Features.ALCOHOL_COLUMN);
-    add(Features.TIME_CAT_COLUMN);
-    add(Features.COL_TYPE_COLUMN);
-    add(Features.ROAD_SURF_COLUMN);
-    add(Features.ROAD_COND_COLUMN);
-    add(Features.LIGHTING_COLUMN);
-  }};
+  private static final double minSupport = 0.10;
+  private static final double minConfidence = 0.45;
 
   public AssociationRules(String tableName) {
     super(tableName);
   }
 
+  /**
+   * for the itemsets, generate all the new possible itemsets by joining
+   * this is a join where only the last value must be from a different feature
+   * not from the same category column but the sublist match
+   * [a.1, b.1] , [a.1, c.1] -> [a.1, b.1, c.1] (GOOD) (b & c different category)
+   * [a.1, b.1] , [a.1, b.2] !-> [a.1, b.1, b.1] (BAD) (b category covered twice)
+   *
+   * @param itemsets
+   * @param depth
+   * @return
+   */
   public static List<List<Attribute>> generateItemsets(List<List<Attribute>> itemsets, int depth) {
     List<List<Attribute>> resultItemset = new ArrayList<>();
 
@@ -75,26 +68,6 @@ public class AssociationRules extends Classifier {
     return resultItemset;
   }
 
-  private static List<List<Attribute>> loadItemsets(String tableName) throws Exception {
-    List<List<Attribute>> dataset = new ArrayList<>();
-
-    String itemsetsSql = new StringTemplate("SELECT ${fields} FROM ${tableName}")
-      .put("fields", associationAttributes.stream().map(Features::getLabel).map(SQLUtils::escapeIdentifier).collect(Collectors.joining(",")))
-      .put("tableName", SQLUtils.escapeIdentifier(tableName)).build();
-
-    try (Connection connection = DriverManager.getConnection(Main.POSTGRES_URL);
-         PreparedStatement ps = connection.prepareStatement(itemsetsSql)) {
-      ResultSet rs = ps.executeQuery();
-      while (rs.next()) {
-        List<Attribute> recordValues = new ArrayList<>();
-        for (Features attribute : associationAttributes) {
-          recordValues.add(new Attribute(attribute, rs.getString(attribute.getLabel())));
-        }
-        dataset.add(recordValues);
-      }
-    }
-    return dataset;
-  }
 
   /**
    * Create all itemsets of size 1 (all distinct attribute values for each column)
@@ -113,13 +86,13 @@ public class AssociationRules extends Classifier {
     int tableTotal = getTotalCount(trainingDataTable);
 
     List<Features> completeItemset = new ArrayList<>();
-    completeItemset.addAll(associationAttributes);
+    completeItemset.addAll(allAttributes);
 
     List<List<Attribute>> candidateItemsets = new ArrayList<>();
     Map<List<Attribute>, Double> candidateItemsetFrequency = new LinkedHashMap<>();
 
     // generate the initial support for C1
-    for (Features attribute : associationAttributes) {
+    for (Features attribute : allAttributes) {
       Map<String, Double> attributeValueProbablities = getAttributeValProbabilities(trainingDataTable, attribute.getLabel(), tableTotal);
 
       for (String val : attributeValueProbablities.keySet()) {
@@ -137,7 +110,7 @@ public class AssociationRules extends Classifier {
     List<List<Attribute>> frequentItemsets = candidateItemsets.stream().filter(i -> checkFrequency.containsKey(i) && checkFrequency.get(i) >= minSupport).collect(Collectors.toList());
 
     // execute algorithm, generating permutations of frequent itemsets
-    while (!candidateItemsets.isEmpty() && depth + 2 != associationAttributes.size() && !frequentItemsets.isEmpty()) {
+    while (!candidateItemsets.isEmpty() && depth + 2 != allAttributes.size() && !frequentItemsets.isEmpty()) {
 
       // generate all combinations of valid itemsets from remaining
       List<List<Attribute>> generatedItemset = generateItemsets(frequentItemsets, depth);
@@ -173,6 +146,8 @@ public class AssociationRules extends Classifier {
   public Map<Map<List<Attribute>, List<Attribute>>, RuleEvaluation> generateAssociationRules(List<List<Attribute>> actualItemsets, Map<List<Attribute>, Double> frequentItemsets) {
     Map<Map<List<Attribute>, List<Attribute>>, RuleEvaluation> associationRules = new LinkedHashMap<>();
 
+    // split the array into two sub-arrays of all variations
+    // only keep if the right array is a singular array of the Severity value
     for (List<Attribute> itemset : frequentItemsets.keySet()) {
       boolean[] flags = new boolean[itemset.size()];
       for (int i = 0; i != itemset.size(); ) {
@@ -191,7 +166,7 @@ public class AssociationRules extends Classifier {
           associationRule.put(a, b);
           Double support = (double) freqItemset / actualItemsets.size();
           Double confidence = (double) freqItemset / freqA;
-          if (confidence > minConfidence && support > minSupport) {
+          if (b.size() == 1 && b.get(0).feature.equals(Features.SEVERITY_COLUMN) && confidence >= minConfidence) {
             associationRules.put(associationRule, new RuleEvaluation(support, confidence));
           }
         }
@@ -201,23 +176,35 @@ public class AssociationRules extends Classifier {
     return associationRules;
   }
 
+  /**
+   * execute the Apriori Assocation Rule Mining technique
+   * find the frequent itemsets utilizing the specific columns within the dataset
+   * for each freqent itemset, generate all possible rule combinations with "Severity" as the singular column on the right
+   * only accept itemsets and rules satisfying the minSupport and minConfidence
+   *
+   * @return
+   * @throws Exception
+   */
   @Override
   public String execute() throws Exception {
     createTrainingTestSets(tableName);
 
+    // get all data
     List<List<Attribute>> actualItemsets = loadItemsets(trainingDataTable);
 
+    // find the frequent itemsets
     Map<List<Attribute>, Double> frequentItemsets = train(actualItemsets);
 
+    // generate the association rules
     Map<Map<List<Attribute>, List<Attribute>>, RuleEvaluation> associationRules = generateAssociationRules(actualItemsets, frequentItemsets);
 
+    // print out the results
     StringBuilder out = new StringBuilder();
     for (Map<List<Attribute>, List<Attribute>> rule : associationRules.keySet()) {
-
       out.append(String.format("{%s} -> {%s} \n(%s, %s)",
         rule.keySet().stream().findFirst().get().stream()
           .map(attribute -> String.format("%s.%s", attribute.feature, attribute.value)).collect(Collectors.joining(",")),
-        rule.keySet().stream().findFirst().get().stream()
+        rule.values().stream().findFirst().get().stream()
           .map(attribute -> String.format("%s.%s", attribute.feature, attribute.value)).collect(Collectors.joining(",")),
         associationRules.get(rule).support,
         associationRules.get(rule).confidence));
