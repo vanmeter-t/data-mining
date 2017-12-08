@@ -6,6 +6,8 @@ import com.cs235.TreeNode;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -16,6 +18,12 @@ public class DecisionTree extends Classifier {
     super(tableName);
   }
 
+  /**
+   * get the mode (most frequent value) from the list
+   *
+   * @param list
+   * @return
+   */
   public static String mode(List<String> list) {
     int max = 0;
     String modeValue = null;
@@ -35,6 +43,14 @@ public class DecisionTree extends Classifier {
     return modeValue;
   }
 
+  /**
+   * execute the Decision Tree classifier
+   * break up the datasets into two, generate the tree
+   * determine the accuracy of the tree with the test dataset
+   *
+   * @return
+   * @throws Exception
+   */
   @Override
   public String execute() throws Exception {
     createTrainingTestSets(tableName);
@@ -47,8 +63,65 @@ public class DecisionTree extends Classifier {
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
     String json = gson.toJson(root);
 
-    return String.format("\n\n Decision Tree:\n\n%s", json);
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter("out/tree.json"))) {
+      writer.write(json);
+    }
 
+    Double accuracy = executeOnTestData(root);
+
+    return String.format("\n\n Decision Tree Accuracy:\n\n%s", accuracy.toString());
+
+  }
+
+  /**
+   * trace the Tree on the test dataset to determine accuracy
+   *
+   * @param root
+   * @return
+   * @throws Exception
+   */
+  public Double executeOnTestData(TreeNode root) throws Exception {
+    int classifiedProperly = 0;
+    int totalTestData = getTotalCount(testDataTable);
+
+    List<List<Attribute>> allItemsets = loadItemsets(testDataTable);
+    for (List<Attribute> item : allItemsets) {
+      String classifiedSeverity = classify(root, item);
+      Attribute a = item.stream().filter(f -> f.feature.equals(Features.SEVERITY_COLUMN)).findFirst().get();
+      if (a.value.equals(classifiedSeverity)) {
+        classifiedProperly++;
+      }
+    }
+    return (double) classifiedProperly / totalTestData;
+  }
+
+  /**
+   * for the particular item, get the Severity classification from the tree
+   *
+   * @param root
+   * @param item
+   * @return
+   */
+  public String classify(TreeNode root, List<Attribute> item) {
+    TreeNode node = root;
+    while (!node.children.isEmpty()) { // get to the leaf node
+      Features parentFeat = node.feature;
+      Optional<Attribute> a = item.stream().filter(f -> f.feature.equals(parentFeat)).findFirst();
+      if (a.isPresent()) {
+        Optional<TreeNode> newNode = node.children.stream()
+          .filter(c -> (c.parentValue != null && c.parentValue.equals(a.get().value)) || (c.parentValue == null && a.get().value == null))
+          .findFirst();
+
+        if (newNode.isPresent()) {
+          node = newNode.get();
+        } else {
+          return "INVALID_SEVERITY";
+        }
+      } else {
+        return "INVALID_SEVERITY";
+      }
+    }
+    return node.value;
   }
 
   public TreeNode train(List<List<Attribute>> trainingData) {
@@ -58,6 +131,17 @@ public class DecisionTree extends Classifier {
     return buildTree(trainingData, features, null);
   }
 
+  /**
+   * Build the Decision Tree using Information Gain Entropy(Purity) for splitting
+   * The Feature with the lowest entropy will split the dataset and generate nodes for all values
+   * The next level will again determine the best split based on entropy until we are at a leaf node
+   * the leaf node is the Severity Attribute value
+   *
+   * @param actualItemsets
+   * @param features
+   * @param prevSplitVal
+   * @return
+   */
   private TreeNode buildTree(List<List<Attribute>> actualItemsets, List<Features> features, String prevSplitVal) {
 
     // all same severity value

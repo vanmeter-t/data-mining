@@ -1,6 +1,9 @@
 package com.cs235;
 
+import com.cs235.classifiers.AssociationRules;
 import com.cs235.classifiers.DecisionTree;
+import com.cs235.classifiers.GridBasedClustering;
+import com.cs235.classifiers.NaiveBayesClassifier;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -28,17 +31,17 @@ public class Main {
 
       String tableName = CSVImporter.importToDatabaseTable(file);
 
-//      GridBasedClustering gridBasedClustering = new GridBasedClustering(tableName, args[3]);
-//      gridBasedClustering.execute();
-//
-//      NaiveBayesClassifier naiveBayesClassifier = new NaiveBayesClassifier(tableName);
-//      writer.write(naiveBayesClassifier.execute());
+      GridBasedClustering gridBasedClustering = new GridBasedClustering(tableName, args[3]);
+      gridBasedClustering.execute();
 
-//      AssociationRules associationRules = new AssociationRules(tableName);
-//      writer.write(associationRules.execute());
+      NaiveBayesClassifier naiveBayesClassifier = new NaiveBayesClassifier(tableName);
+      writer.write(naiveBayesClassifier.execute());
 
       DecisionTree decisionTree = new DecisionTree(tableName);
       writer.write(decisionTree.execute());
+
+      AssociationRules associationRules = new AssociationRules(tableName);
+      writer.write(associationRules.execute());
     }
 
     System.exit(0); //success
