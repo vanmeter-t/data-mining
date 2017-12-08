@@ -26,11 +26,9 @@ public class GridBasedClustering {
   private static final String COL_COUNT = "binCount";
 
   private final String tableName;
-  private final String outFile;
 
-  public GridBasedClustering(String tableName, String outFile) {
+  public GridBasedClustering(String tableName) {
     this.tableName = tableName;
-    this.outFile = outFile;
   }
 
   public static List<GridCluster> generateBinData(String tableName) throws Exception {
@@ -93,7 +91,7 @@ public class GridBasedClustering {
     List<GridBasedClustering.GridCluster> gridClusters = GridBasedClustering.generateBinData(tableName);
 
     // write the results to file
-    try (FileOutputStream outStream = new FileOutputStream(outFile);
+    try (FileOutputStream outStream = new FileOutputStream("out/grid_clusters.tsv");
          CSVWriter out = new CSVWriter(new OutputStreamWriter(outStream, StandardCharsets.UTF_8), '\t', CSVWriter.DEFAULT_QUOTE_CHARACTER, '\\')) {
       gridClusters.stream()
         .map(cluster -> new String[]{cluster.oid.toString(), cluster.count.toString(), cluster.geometryWkt})

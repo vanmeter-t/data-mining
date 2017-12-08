@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 
 public class AssociationRules extends Classifier {
 
-  private static final double minSupport = 0.10;
-  private static final double minConfidence = 0.45;
+  private static final double minSupport = 0.09;
+  private static final double minConfidence = 0.40;
 
   public AssociationRules(String tableName) {
     super(tableName);

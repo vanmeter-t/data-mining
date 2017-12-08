@@ -18,7 +18,7 @@ public class Main {
    * Execute the clustering, and the three classifiers: Naive Bayes, Apriori Rule Association, Information Gain Decision Tree
    * Save the results to an our file and a cluster TSV file
    *
-   * @param args [0] [1] [2] [3] - PostgreSQL address | Input CSV dataset | Output Results .txt file | Output clustering .tsv file
+   * @param args [0] [1] - PostgreSQL address | Input CSV dataset
    * @throws Exception
    */
   public static void main(String[] args) throws Exception {
@@ -29,13 +29,13 @@ public class Main {
 
     File file = new File(args[1]);
 
-    try (BufferedWriter writer = new BufferedWriter(new FileWriter(args[2]))) {
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter("out/out.txt"))) {
 
       String tableName = CSVImporter.importToDatabaseTable(file);
 
       Timers timer = Timers.start();
       System.out.println("Grid Based Clustering started...");
-      GridBasedClustering gridBasedClustering = new GridBasedClustering(tableName, args[3]);
+      GridBasedClustering gridBasedClustering = new GridBasedClustering(tableName);
       gridBasedClustering.execute();
       System.out.println(String.format(" finished (%s ms)...", timer.elapsedMillis()));
 

@@ -7,6 +7,7 @@ Trevor Van Meter
 1. Startup a PostgreSQL database instance
 2. Run Maven command `mvn clean install`
 3. Execute the cs235_project-1.0-SNAPSHOT.one-jar.jar (see Usage)
+4. Output files placed in `out/` folder
 
 ## Usage
 
@@ -15,10 +16,6 @@ Trevor Van Meter
         - "localhost:32770/postgres?user=postgres"
     2. [1] - Input data file
         - src/main/resources/Collisions_20092013_SWITRS.csv
-    3. [2] - Output location for results
-        - out/out.txt
-    4. [3] - Output location for grid clustering results in .tsv format
-      - out/grid.tsv
 
 ```cmd
  java -jar target/cs235_project-1.0-SNAPSHOT.one-jar.jar "localhost:32770/postgres?user=postgres" src/main/resources/Collisions_20092013_SWITRS.csv out/out.txt out/grid.tsv
