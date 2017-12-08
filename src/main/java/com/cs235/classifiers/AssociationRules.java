@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 
 public class AssociationRules extends Classifier {
 
-  private static final double minSupport = 0.09;
-  private static final double minConfidence = 0.40;
+  private static final double minSupport = 0.25;
+  private static final double minConfidence = 0.35;
 
   public AssociationRules(String tableName) {
     super(tableName);
@@ -128,7 +128,11 @@ public class AssociationRules extends Classifier {
       frequentItemsets = candidateItemsets.stream().filter(i -> checkFrequency2.containsKey(i) && checkFrequency2.get(i) >= minSupport).collect(Collectors.toList());
 
       if (!frequentItemsets.isEmpty()) {
-        resultItemset = candidateItemsetFrequency;
+        for (Map.Entry<List<Attribute>, Double> entry : candidateItemsetFrequency.entrySet()) {
+          if (!resultItemset.containsKey(entry.getKey())) {
+            resultItemset.put(entry.getKey(), entry.getValue());
+          }
+        }
       }
 
       depth++;

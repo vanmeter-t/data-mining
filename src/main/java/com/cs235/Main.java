@@ -31,9 +31,10 @@ public class Main {
 
     try (BufferedWriter writer = new BufferedWriter(new FileWriter("out/out.txt"))) {
 
+      Timers timer = Timers.start();
       String tableName = CSVImporter.importToDatabaseTable(file);
 
-      Timers timer = Timers.start();
+      timer = Timers.start();
       System.out.println("Grid Based Clustering started...");
       GridBasedClustering gridBasedClustering = new GridBasedClustering(tableName);
       gridBasedClustering.execute();
@@ -56,7 +57,6 @@ public class Main {
       AssociationRules associationRules = new AssociationRules(tableName);
       writer.write(associationRules.execute());
       System.out.println(String.format(" finished (%s ms)...", timer.elapsedMillis()));
-
     }
 
     System.out.println("---------- PROCESS COMPLETED ----------");
