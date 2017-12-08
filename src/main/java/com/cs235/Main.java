@@ -23,6 +23,8 @@ public class Main {
    */
   public static void main(String[] args) throws Exception {
 
+    System.out.println("Starting data mining:");
+
     POSTGRES_URL = String.format("jdbc:postgresql://%s", args[0]);
 
     File file = new File(args[1]);
@@ -31,18 +33,33 @@ public class Main {
 
       String tableName = CSVImporter.importToDatabaseTable(file);
 
+      Timers timer = Timers.start();
+      System.out.println("Grid Based Clustering started...");
       GridBasedClustering gridBasedClustering = new GridBasedClustering(tableName, args[3]);
       gridBasedClustering.execute();
+      System.out.println(String.format(" finished (%s ms)...", timer.elapsedMillis()));
 
+      timer = Timers.start();
+      System.out.println("Naive Bayes Classifier started...");
       NaiveBayesClassifier naiveBayesClassifier = new NaiveBayesClassifier(tableName);
       writer.write(naiveBayesClassifier.execute());
+      System.out.println(String.format(" finished (%s ms)...", timer.elapsedMillis()));
 
+      timer = Timers.start();
+      System.out.println("Decision Tree Classifier started...");
       DecisionTree decisionTree = new DecisionTree(tableName);
       writer.write(decisionTree.execute());
+      System.out.println(String.format(" finished (%s ms)...", timer.elapsedMillis()));
 
+      timer = Timers.start();
+      System.out.println("Apriori Association Rule Mining started...");
       AssociationRules associationRules = new AssociationRules(tableName);
       writer.write(associationRules.execute());
+      System.out.println(String.format(" finished (%s ms)...", timer.elapsedMillis()));
+
     }
+
+    System.out.println("---------- PROCESS COMPLETED ----------");
 
     System.exit(0); //success
   }

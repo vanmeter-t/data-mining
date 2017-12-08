@@ -5,7 +5,8 @@ Trevor Van Meter
 ## Installation
 
 1. Startup a PostgreSQL database instance
-2. Execute the cs235_project-1.0-SNAPSHOT.one-jar.jar (see Usage)
+2. Run Maven command `mvn clean install`
+3. Execute the cs235_project-1.0-SNAPSHOT.one-jar.jar (see Usage)
 
 ## Usage
 
