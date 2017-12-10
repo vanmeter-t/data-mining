@@ -205,7 +205,7 @@ public class AssociationRules extends Classifier {
     // print out the results
     StringBuilder out = new StringBuilder();
     for (Map<List<Attribute>, List<Attribute>> rule : associationRules.keySet()) {
-      out.append(String.format("{%s} -> {%s} \n(%s, %s)",
+      out.append(String.format("%s,%s,%s,%s",
         rule.keySet().stream().findFirst().get().stream()
           .map(attribute -> String.format("%s.%s", attribute.feature, attribute.value)).collect(Collectors.joining(",")),
         rule.values().stream().findFirst().get().stream()

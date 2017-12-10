@@ -15,9 +15,12 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class NaiveBayesClassifier extends Classifier {
+
+  private static final Map<String, Map<String, AtomicInteger>> accuracyTable = new LinkedHashMap<>();
 
   private Map<Integer, Double> severityTypeProbabilities;
 
@@ -49,7 +52,9 @@ public class NaiveBayesClassifier extends Classifier {
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
     String json = gson.toJson(trainedProbabilities);
 
-    return String.format("\n\nNaive Bayes Accuracy %s\n\nTraining Set Probabilities:%s", accuracy, json);
+    String accuracyTableJson = gson.toJson(accuracyTable);
+
+    return String.format("\n\nNaive Bayes Accuracy %s\n\nAccuracy Table: %s\n\nTraining Set Probabilities:%s", accuracy, accuracyTableJson, json);
   }
 
   /**
@@ -121,6 +126,8 @@ public class NaiveBayesClassifier extends Classifier {
     Map<Integer, Map<String, Map<String, Double>>> trainedClassifier = new LinkedHashMap<>();
     for (Map.Entry<Integer, String> entry : severityTables.entrySet()) {
       Integer severity = entry.getKey();
+
+
       Map<String, Map<String, Double>> featureMapping = new LinkedHashMap<>();
       for (Features attribute : attributes) {
         Map<String, Double> featureProb = getAttributeValProbabilities(severityTables.get(severity), attribute.getLabel(), severityTypeCount.get(severity));
@@ -176,6 +183,20 @@ public class NaiveBayesClassifier extends Classifier {
             if (classifiedSeverity.getKey().equals(actualSeverity)) {
               classifiedProperly++;
             }
+
+            if (accuracyTable.containsKey(actualSeverity.toString())) {
+              Map<String, AtomicInteger> predicted = accuracyTable.get(actualSeverity.toString());
+              if (predicted.containsKey(classifiedSeverity.getKey().toString())) {
+                predicted.get(classifiedSeverity.getKey().toString()).incrementAndGet();
+              } else {
+                predicted.put(classifiedSeverity.getKey().toString(), new AtomicInteger(1));
+              }
+            } else {
+              Map<String, AtomicInteger> predicted = new LinkedHashMap<>();
+              predicted.put(classifiedSeverity.getKey().toString(), new AtomicInteger(1));
+              accuracyTable.put(actualSeverity.toString(), predicted);
+            }
+
           }
         }
       }
@@ -198,9 +219,10 @@ public class NaiveBayesClassifier extends Classifier {
   private Double getRecordProbabilityPerSeverity(ResultSet rs, Integer severity, Map<String, Map<String, Double>> trainedData) throws Exception {
     List<Double> out = new ArrayList<>();
     for (Features attribute : attributes) {
-      String featureValue = rs.getString(attribute.getLabel());
-      if (trainedData.containsKey(attribute)) {
-        out.add(trainedData.get(attribute).get(featureValue));
+      String attributeLabel = attribute.getLabel();
+      String featureValue = rs.getString(attributeLabel);
+      if (trainedData.containsKey(attributeLabel)) {
+        out.add(trainedData.get(attributeLabel).get(featureValue));
       }
     }
     Double p = out.stream().filter(val -> val != null).reduce(1.0, (a, b) -> a * b);
