@@ -82,28 +82,6 @@ public class NaiveBayesClassifier extends Classifier {
   }
 
   /**
-   * For each severity level, determine the total count
-   *
-   * @param severityTables - the severity level and corresponding database table
-   * @return map of severity level to the total count
-   * @throws Exception
-   */
-  public Map<Integer, Integer> getSeverityCount(Map<Integer, String> severityTables) throws Exception {
-    Map<Integer, Integer> out = new LinkedHashMap<>();
-    for (Map.Entry<Integer, String> entry : severityTables.entrySet()) {
-      String countSql = getCount.put("tableName", SQLUtils.escapeIdentifier(entry.getValue())).build();
-      try (Connection connection = DriverManager.getConnection(Main.POSTGRES_URL);
-           PreparedStatement ps = connection.prepareStatement(countSql)) {
-        ResultSet rs = ps.executeQuery();
-        if (rs.next()) {
-          out.put(entry.getKey(), rs.getInt(1));
-        }
-      }
-    }
-    return out;
-  }
-
-  /**
    * * FROM TRAINING DATA
    * for each severity, for each attribute column, determine the probability given the severity
    * P(Alcohol - Yes | Severity_1)=0.66

@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
 
 public class DecisionTree extends Classifier {
 
+  private Map<String, AtomicInteger> resultsPerSeverity = new LinkedHashMap<>();
+
   public DecisionTree(String tableName) {
     super(tableName);
   }
@@ -67,10 +69,21 @@ public class DecisionTree extends Classifier {
       writer.write(json);
     }
 
+    Map<Integer, String> severityTables = separateBySeverity(trainingDataTable);
+    Map<Integer, Integer> severityTypeCount = getSeverityCount(severityTables);
+
     Double accuracy = executeOnTestData(root);
 
-    return String.format("\n\n Decision Tree Accuracy:\n\n%s", accuracy.toString());
+    StringBuilder accuracyPerSeverity = new StringBuilder();
+    for (Integer severity : severityTypeCount.keySet()) {
+      String severityStr = severity.toString() + ".00000000";
+      if (resultsPerSeverity.containsKey(severityStr)) {
+        Double accuracySeverity = (double) resultsPerSeverity.get(severityStr).get() / severityTypeCount.get(severity);
+        accuracyPerSeverity.append(String.format("Severity %s: Accuracy %s", severity.toString(), accuracySeverity));
+      }
+    }
 
+    return String.format("\n\n Decision Tree Accuracy:\n\n%s\n\n Per Severity: \n%s", accuracy.toString(), accuracyPerSeverity.toString());
   }
 
   /**
@@ -90,6 +103,11 @@ public class DecisionTree extends Classifier {
       Attribute a = item.stream().filter(f -> f.feature.equals(Features.SEVERITY_COLUMN)).findFirst().get();
       if (a.value.equals(classifiedSeverity)) {
         classifiedProperly++;
+        if (resultsPerSeverity.containsKey(classifiedSeverity)) {
+          resultsPerSeverity.get(classifiedSeverity).incrementAndGet();
+        } else {
+          resultsPerSeverity.put(classifiedSeverity, new AtomicInteger(1));
+        }
       }
     }
     return (double) classifiedProperly / totalTestData;

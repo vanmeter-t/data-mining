@@ -18,7 +18,7 @@ Trevor Van Meter
         - src/main/resources/Collisions_20092013_SWITRS.csv
 
 ```cmd
- java -jar target/cs235_project-1.0-SNAPSHOT.one-jar.jar "localhost:32770/postgres?user=postgres" src/main/resources/Collisions_20092013_SWITRS.csv out/out.txt out/grid.tsv
+ java -jar target/cs235_project-1.0-SNAPSHOT.one-jar.jar "localhost:32770/postgres?user=postgres" src/main/resources/Collisions_20092013_SWITRS.csv
 ```
 
 
